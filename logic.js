@@ -1,14 +1,12 @@
+// Initial coordinates for map starting at downtown Austin
 var userLat = 30.275371;
 var userLon = -97.740110;
 
 // Click handler for share location button
 $("#share-location").on("click", function (event) {
-    // gets the users gps location. This code was taken from google maps api page
+    // gets the users gps location. This code was adapted from code taken from google maps api page
     event.preventDefault();
     var startPos;
-    var geoOptions = {
-        maximumAge: 5 * 60 * 1000,
-    }
 
     var geoSuccess = function (position) {
         startPos = position;
@@ -23,10 +21,14 @@ $("#share-location").on("click", function (event) {
         //   2: position unavailable (error response from location provider)
         //   3: timed out
     };
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-    initMap();
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 });
 
+$("#update-map").on("click", function (event) {
+    // update the map after getting the user's location
+    event.preventDefault();
+    initMap();
+});
 
 // check for Geolocation support. This code was taken from google maps api page
 if (navigator.geolocation) {

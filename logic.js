@@ -1,6 +1,37 @@
+// Click handler for share location button
+$("#share-location").on("click", getLocation());
+
+// gets the users gps location. This code was taken from google maps api page
+function getLocation() {
+    var startPos;
+    var geoSuccess = function(position) {
+      startPos = position;
+      document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+      document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+  };
+
+// check for Geolocation support. This code was taken from google maps api page
+if (navigator.geolocation) {
+    console.log('Geolocation is supported!');
+}
+else {
+    console.log('Geolocation is not supported for this Browser/OS.');
+}
+
+// display map based on coordinates
+var map;
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: userLat, lng: userLng },
+        zoom: 8
+    });
+}
+
 // Portions of the weather api code were taken from the weather dashboard project
 // query url for current weather
-var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=a07b059ae0ff859a91d785bcde02804c";
+var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&appid=a07b059ae0ff859a91d785bcde02804c";
 
 // call for current weather
 $.ajax({
@@ -11,7 +42,7 @@ $.ajax({
     // get current sky id
     var currentSky = response.weather[0].id;
     var iconCode = getSkyIcon(currentSky);
-    $("#current-sky-icon").attr("src","http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+    $("#current-sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
     // get current date
     var currentDate = moment().format('l');
@@ -30,7 +61,7 @@ $.ajax({
 function getCurrentWeather(b) {
     var a = b.toString();
     // Thunderstorm
-    if (a[0] == "2"){
+    if (a[0] == "2") {
         return "11d";
     }
     // Drizzle

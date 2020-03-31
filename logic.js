@@ -1,16 +1,32 @@
-// Click handler for share location button
-$("#share-location").on("click", getLocation());
+var userLat = 30.275371;
+var userLon = -97.740110;
 
-// gets the users gps location. This code was taken from google maps api page
-function getLocation() {
+// Click handler for share location button
+$("#share-location").on("click", function (event) {
+    // gets the users gps location. This code was taken from google maps api page
+    event.preventDefault();
     var startPos;
-    var geoSuccess = function(position) {
-      startPos = position;
-      document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-      document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+    var geoOptions = {
+        maximumAge: 5 * 60 * 1000,
+    }
+
+    var geoSuccess = function (position) {
+        startPos = position;
+        userLat = startPos.coords.latitude;
+        userLon = startPos.coords.longitude;
     };
-    navigator.geolocation.getCurrentPosition(geoSuccess);
-  };
+    var geoError = function (error) {
+        console.log('Error occurred. Error code: ' + error.code);
+        // error.code can be:
+        //   0: unknown error
+        //   1: permission denied
+        //   2: position unavailable (error response from location provider)
+        //   3: timed out
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+    initMap();
+});
+
 
 // check for Geolocation support. This code was taken from google maps api page
 if (navigator.geolocation) {
@@ -24,14 +40,14 @@ else {
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: userLat, lng: userLng },
-        zoom: 8
+        center: { lat: userLat, lng: userLon },
+        zoom: 15
     });
 }
 
 // Portions of the weather api code were taken from the weather dashboard project
 // query url for current weather
-var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&appid=a07b059ae0ff859a91d785bcde02804c";
+var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
 
 // call for current weather
 $.ajax({

@@ -9,17 +9,28 @@
     <link rel="stylesheet" href="style.css" />
 
     <title>Lunch and Wag</title>
+
+    <style>
+        #map {
+            height: 400px;
+            width: 400px;
+        }
+    </style>
+
 </head>
 
 <body>
 
+    <div id="map"></div>
+    <button id="share-location">Share Location</button>
 
-    
+    <!--Link to jquery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!--Link to logic.js-->
     <script src="logic.js"></script>
     <!--Link for google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0k1w0Ti4gCQdoF1qNNKgT7JbkV_aHin0&callback=initMap"
-    async defer></script>
+        async defer></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ $(document).ready(function () {
         console.log("submitted")
 
         //set searched value to variable
-        window.searchText = $("#searchInput").val();
+        window.searchText = $('#searchBar').val();
 
         // log searched value to test
         console.log(window.searchText);
@@ -46,7 +46,6 @@ $(document).ready(function () {
 
             //log your object, make sure it returns properly
             console.log(response.businesses)
-            console.log(response.businesses[0].image_url)
 
 
          
@@ -72,4 +71,28 @@ $(document).ready(function () {
 
 
     });
-})
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+
+});

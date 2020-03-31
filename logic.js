@@ -28,6 +28,7 @@ $("#update-map").on("click", function (event) {
     // update the map after getting the user's location
     event.preventDefault();
     initMap();
+    getWeather();
 });
 
 // check for Geolocation support. This code was taken from google maps api page
@@ -48,35 +49,39 @@ function initMap() {
 }
 
 // Portions of the weather api code were taken from the weather dashboard project
-// query url for current weather
-var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
 
-// call for current weather
-$.ajax({
-    url: weatherQueryUrl,
-    method: "GET"
-}).then(function (response) {
+function getWeather() {
+    // query url for current weather
+    var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
 
-    // get current sky id
-    var currentSky = response.weather[0].id;
-    var iconCode = getSkyIcon(currentSky);
-    $("#current-sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+    // call for current weather
+    $.ajax({
+        url: weatherQueryUrl,
+        method: "GET"
+    }).then(function (response) {
 
-    // get current date
-    var currentDate = moment().format('l');
-    // add current date to heading of current city stats
-    $("#current-city").append(currentDate);
+        // get current sky id
+        var currentSky = response.weather[0].id;
+        var iconCode = getSkyIcon(currentSky);
+        console.log(iconCode);
+        // $("#current-sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
-    // get current temp
-    var currentTemp = response.main.temp;
-    // Convert from kelvin to farenheit
-    currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
-    currentTemp = Math.round(currentTemp);
-    $("#current-temp").append("Temperature: " + currentTemp + " °F");
-});
+        // get current date
+        var currentDate = moment().format('l');
+        // add current date to heading of current city stats
+        // $("#current-city").append(currentDate);
 
+        // get current temp
+        var currentTemp = response.main.temp;
+        // Convert from kelvin to farenheit
+        currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
+        currentTemp = Math.round(currentTemp);
+        console.log(currentTemp);
+        // $("#current-temp").append("Temperature: " + currentTemp + " °F");
+    });
+}
 // gets current weather based on api response. The things currently being returned are codes for the weather icon
-function getCurrentWeather(b) {
+function getSkyIcon(b) {
     var a = b.toString();
     // Thunderstorm
     if (a[0] == "2") {

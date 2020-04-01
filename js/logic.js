@@ -3,11 +3,14 @@ var userLat = 30.275371;
 var userLon = -97.740110;
 // display map based on coordinates
 var map;
+var geocoder;
+var zipcode = "";
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: userLat, lng: userLon },
         zoom: 15
     });
+    geocoder = new google.maps.Geocoder;
 }
 
 //preceeds all jquery code
@@ -27,15 +30,17 @@ $(document).ready(function () {
         //testing button click works
         console.log("submitted")
 
-        //set searched value to variable
-        window.searchText = $('#searchBar').val();
-
-        // log searched value to test
-        console.log(window.searchText);
-
-
-
-
+        if ($('#searchBar').val() !== "") {
+            //set searched value to variable
+            window.searchText = $('#searchBar').val();
+        }
+        else if (zipcode !== "") {
+            window.searchText = zipcode;
+        }
+        else {
+            console.log("No location entered");
+            return;
+        }
 
         // Define the settings for the API call as per yelp API documentation
         var settings = {
@@ -58,20 +63,25 @@ $(document).ready(function () {
             //log your object, make sure it returns properly
             console.log(response.businesses)
 
+            // center map on first result
+            var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: latlon
+            });
 
+            for (var i = 0; i < 10; i++) {
+                latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
 
-
-
-
-
-
+                // add results to map
+                var marker = new google.maps.Marker({
+                    position: latlon,
+                    map: map,
+                    title: results[i].name
+                });
+            }
 
         }).fail(function (err) { console.log("something went wrong") });
-
-
-
-
-
 
     });
 
@@ -86,7 +96,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
@@ -98,6 +108,8 @@ $(document).ready(function () {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
+            geocodeLatLng(geocoder, map);
+            initMap();
         };
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -125,7 +137,19 @@ $(document).ready(function () {
         console.log('Geolocation is not supported for this Browser/OS.');
     }
 
-    
+    // Get zipcode from shared location. This code was adapted from code taken from google maps api page
+    function geocodeLatLng(geocoder, map) {
+        var latlng = { lat: userLat, lng: userLon };
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === 'OK') {
+                zipcode = results[0].address_components[6].long_name;
+            }
+            else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
 
     // Portions of the weather api code were taken from the weather dashboard project
 

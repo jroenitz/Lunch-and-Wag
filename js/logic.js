@@ -30,11 +30,11 @@ $(document).ready(function () {
         //testing button click works
         console.log("submitted")
 
-        if ($('#searchBar').val() !== ""){
-        //set searched value to variable
-        window.searchText = $('#searchBar').val();
+        if ($('#searchBar').val() !== "") {
+            //set searched value to variable
+            window.searchText = $('#searchBar').val();
         }
-        else if (zipcode !== ""){
+        else if (zipcode !== "") {
             window.searchText = zipcode;
         }
         else {
@@ -62,7 +62,24 @@ $(document).ready(function () {
 
             //log your object, make sure it returns properly
             console.log(response.businesses)
+            
+            // center map on first result
+            var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: latlon
+            });
 
+            for (var i = 0; i < 10; i++) {
+                latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
+
+                // add results to map
+                var marker = new google.maps.Marker({
+                    position: latlon,
+                    map: map,
+                    title: results[i].name
+                });
+            }
 
 
 

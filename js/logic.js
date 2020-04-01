@@ -4,7 +4,7 @@ var userLon = -97.740110;
 // display map based on coordinates
 var map;
 var geocoder;
-var zipCode;
+var zipCode = "";
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: userLat, lng: userLon },
@@ -30,9 +30,17 @@ $(document).ready(function () {
         //testing button click works
         console.log("submitted")
 
+        if ($('#searchBar').val() !== ""){
         //set searched value to variable
         window.searchText = $('#searchBar').val();
-
+        }
+        else if (zipCode !== ""){
+            window.searchText = zipCode;
+        }
+        else {
+            console.log("No location entered");
+            return;
+        }
         // log searched value to test
         console.log(window.searchText);
 

@@ -67,37 +67,36 @@ $(document).ready(function () {
 
 
         }).fail(function (err) { console.log("something went wrong") });
-
-
-
+        
+       
 
 
 
     });
-    $(document).ready(function () {
-        function getLatLngByZipcode(zipcode){
-            var geocoder = new google.maps.Geocoder();
+    // $(document).ready(function () {
+    //     function getLatLngByZipcode(zipcode){
+    //         var geocoder = new google.maps.Geocoder();
             
-            geocoder.geocode({ 'address': 'zipcode'+zipcode }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                   userLat = results[0].geometry.location.lat();
-                   userLon = results[0].geometry.location.lng();
-                   initMap()
-                   console.log(results)
-                } else {
-                    alert("Request failed.")
-                }
+    //         geocoder.geocode({ 'address': 'zipcode'+zipcode }, function (results, status) {
+    //             if (status == google.maps.GeocoderStatus.OK) {
+    //                userLat = results[0].geometry.location.lat();
+    //                userLon = results[0].geometry.location.lng();
+    //                initMap()
+    //                console.log(results)
+    //             } else {
+    //                 alert("Request failed.")
+    //             }
                 
-            })
-        }
-    $("#searchButton").on("click", function (e) {
-        var zipcode = $("#searchBar").val();
-        console.log(zipcode);
-            //keeps from reloading page 
-            e.preventDefault();
+    //         })
+    //     }
+    // $("#searchButton").on("click", function (e) {
+    //     var zipcode = $("#searchBar").val();
+    //     console.log(zipcode);
+    //         //keeps from reloading page 
+    //         e.preventDefault();
     
-            getLatLngByZipcode(zipcode)})
-    })
+    //         getLatLngByZipcode(zipcode)})
+    // })
 
 
 
@@ -217,4 +216,29 @@ $(document).ready(function () {
             return "02d";
         }
     }
+
+    function getLatLngByZipcode(zipcode){
+        var geocoder = new google.maps.Geocoder();
+        
+        geocoder.geocode({ 'address': 'zipcode'+zipcode }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+               userLat = results[0].geometry.location.lat();
+               userLon = results[0].geometry.location.lng();
+               initMap()
+               console.log(results)
+            } else {
+                alert("Request failed.")
+            }
+            
+        })
+    }
+$("#searchButton").on("click", function (e) {
+    var zipcode = $("#searchBar").val();
+    console.log(zipcode);
+        //keeps from reloading page 
+        e.preventDefault();
+
+        getLatLngByZipcode(zipcode)})
+
+
 });

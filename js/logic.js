@@ -82,7 +82,6 @@ $(document).ready(function () {
             }
 
         }).fail(function (err) { console.log("something went wrong") });
-<<<<<<< HEAD
         
        
 
@@ -90,23 +89,6 @@ $(document).ready(function () {
 
     });
      
-=======
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 34f0b954eec3bd3a0c5e4ef4dffd813f115e0d35
 
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
@@ -118,10 +100,6 @@ $(document).ready(function () {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
-<<<<<<< HEAD
-=======
-            geocodeLatLng(geocoder, map);
->>>>>>> 34f0b954eec3bd3a0c5e4ef4dffd813f115e0d35
             initMap();
         };
         var geoError = function (error) {

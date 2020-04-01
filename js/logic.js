@@ -41,7 +41,7 @@ $(document).ready(function () {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
+            "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly&categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
             "method": "GET",
             "headers": {
                 "authorization": "Bearer mG2W4beNkid7kw7VedFpAGl3pnGUjsxvDHCalMUshB7fkFCSQTpeVxSMjtT5QOBCOoJPiYTPuG6o3B3qh6148amFphWJmTjtJdA7TLtAvr9VVxz4NjJG57EzQkWCXnYx",
@@ -74,9 +74,30 @@ $(document).ready(function () {
 
 
     });
-
-
-
+    $(document).ready(function () {
+        function getLatLngByZipcode(zipcode){
+            var geocoder = new google.maps.Geocoder();
+            
+            geocoder.geocode({ 'address': 'zipcode'+zipcode }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                   userLat = results[0].geometry.location.lat();
+                   userLon = results[0].geometry.location.lng();
+                   initMap()
+                   console.log(results)
+                } else {
+                    alert("Request failed.")
+                }
+                
+            })
+        }
+    $("#searchButton").on("click", function (e) {
+        var zipcode = $("#searchBar").val();
+        console.log(zipcode);
+            //keeps from reloading page 
+            e.preventDefault();
+    
+            getLatLngByZipcode(zipcode)})
+    })
 
 
 
@@ -98,6 +119,7 @@ $(document).ready(function () {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
+            initMap();
         };
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -108,7 +130,8 @@ $(document).ready(function () {
             //   3: timed out
         };
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-    });
+        
+    })
 
     $("#update-map").on("click", function (event) {
         // update the map after getting the user's location

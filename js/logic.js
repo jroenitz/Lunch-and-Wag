@@ -82,20 +82,8 @@ $(document).ready(function () {
             }
 
         }).fail(function (err) { console.log("something went wrong") });
-
+        getWeather();
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // Click handler for share location button
@@ -110,6 +98,7 @@ $(document).ready(function () {
             userLon = startPos.coords.longitude;
             geocodeLatLng(geocoder, map);
             initMap();
+            getWeather();
         };
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -167,12 +156,12 @@ $(document).ready(function () {
             var currentSky = response.weather[0].id;
             var iconCode = getSkyIcon(currentSky);
             console.log(iconCode);
-            // $("#current-sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+            $("#sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
             // get current date
             var currentDate = moment().format('l');
             // add current date to heading of current city stats
-            // $("#current-city").append(currentDate);
+            $("#weather").text(currentDate);
 
             // get current temp
             var currentTemp = response.main.temp;
@@ -180,7 +169,7 @@ $(document).ready(function () {
             currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
             currentTemp = Math.round(currentTemp);
             console.log(currentTemp);
-            // $("#current-temp").append("Temperature: " + currentTemp + " °F");
+            $("#temp").text("Temperature: " + currentTemp + " °F");
         });
     }
     // gets current weather based on api response. The things currently being returned are codes for the weather icon

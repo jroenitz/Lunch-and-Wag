@@ -4,7 +4,7 @@ var userLon = -97.740110;
 // display map based on coordinates
 var map;
 var geocoder;
-var zipCode = "";
+var zipcode = "";
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: userLat, lng: userLon },
@@ -34,19 +34,13 @@ $(document).ready(function () {
         //set searched value to variable
         window.searchText = $('#searchBar').val();
         }
-        else if (zipCode !== ""){
-            window.searchText = zipCode;
+        else if (zipcode !== ""){
+            window.searchText = zipcode;
         }
         else {
             console.log("No location entered");
             return;
         }
-        // log searched value to test
-        console.log(window.searchText);
-
-
-
-
 
         // Define the settings for the API call as per yelp API documentation
         var settings = {
@@ -143,7 +137,7 @@ $(document).ready(function () {
         var latlng = { lat: userLat, lng: userLon };
         geocoder.geocode({ 'location': latlng }, function (results, status) {
             if (status === 'OK') {
-                zipCode = results[0].address_components[6].long_name;
+                zipcode = results[0].address_components[6].long_name;
             }
             else {
                 window.alert('Geocoder failed due to: ' + status);

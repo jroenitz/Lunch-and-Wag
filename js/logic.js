@@ -62,7 +62,7 @@ $(document).ready(function () {
 
             //log your object, make sure it returns properly
             console.log(response.businesses)
-            
+
             // center map on first result
             var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -81,19 +81,7 @@ $(document).ready(function () {
                 });
             }
 
-
-
-
-
-
-
-
         }).fail(function (err) { console.log("something went wrong") });
-
-
-
-
-
 
     });
 

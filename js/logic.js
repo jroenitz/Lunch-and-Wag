@@ -3,11 +3,14 @@ var userLat = 30.275371;
 var userLon = -97.740110;
 // display map based on coordinates
 var map;
+var geocoder;
+var zipCode;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: userLat, lng: userLon },
         zoom: 15
     });
+    geocoder = new google.maps.Geocoder;
 }
 
 //preceeds all jquery code
@@ -86,7 +89,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
@@ -98,6 +101,8 @@ $(document).ready(function () {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
+            geocodeLatLng(geocoder, map);
+            initMap();
         };
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -125,7 +130,19 @@ $(document).ready(function () {
         console.log('Geolocation is not supported for this Browser/OS.');
     }
 
-    
+    // Get zipcode from shared location. This code was adapted from code taken from google maps api page
+    function geocodeLatLng(geocoder, map) {
+        var latlng = { lat: userLat, lng: userLon };
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === 'OK') {
+                zipCode = results[0].address_components[6].long_name;
+            }
+            else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
 
     // Portions of the weather api code were taken from the weather dashboard project
 

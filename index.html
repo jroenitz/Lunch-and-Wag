@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lunch and Wag</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 
@@ -46,7 +46,8 @@
 
         <!-- /where weather can go-->
         <div class="show-for-large large-3 columns">
-            <img src="https://placehold.it/400x370&text=PSR1257 + 12 C" alt="picture of space">
+            <div id="map"></div>
+            <button id="update-map">Update Map</button>
         </div>
 
         <div class="medium-5 large-3 columns">
@@ -57,6 +58,7 @@
                             <label>Where you at?
                                 <input type="text" placeholder="Zip Code Your In" id="searchInput">
                             </label>
+                            <button id="share-location">Share Location</button>
                         </div>
                     </div>
                 </form>
@@ -150,19 +152,22 @@
 
     </footer>
 
-    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-    <script src="logic.js"></script>
-
-
     <!--- dowloaded Jquery js local-->
 
     <script src="js/jquery.3.4.1.js"></script>
 
-    <!--dowloaded js files to host locally-->
-    <script src="js/bootstrap.min.js"></script>
+    <!--Foundation framework-->
+    <!-- <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script> -->
+    
+    <!--Link to moment-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <!--  custom js file  -->
     <script src="js/logic.js"></script>
+
+    <!--Google Maps-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0k1w0Ti4gCQdoF1qNNKgT7JbkV_aHin0&callback=initMap"
+        async defer></script>
 </body>
 
 </html>

@@ -102,6 +102,7 @@ $(document).ready(function () {
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
             geocodeLatLng(geocoder, map);
+
             // reload the map centered on user's location
             initMap();
             // get the weather at the user's location
@@ -132,6 +133,8 @@ $(document).ready(function () {
         geocoder.geocode({ 'location': latlng }, function (results, status) {
             if (status === 'OK') {
                 zipcode = results[0].address_components[6].long_name;
+                // update zipcode in search field
+                $('#searchBar').val(zipcode);
             }
             else {
                 window.alert('Geocoder failed due to: ' + status);

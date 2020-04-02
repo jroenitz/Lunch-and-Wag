@@ -1,6 +1,9 @@
 // Initial coordinates for map starting at downtown Austin
 var userLat = 30.275371;
 var userLon = -97.740110;
+var geocoder;
+var zipcode = "";
+
 // display map based on coordinates
 var map;
 function initMap() {
@@ -8,6 +11,7 @@ function initMap() {
         center: { lat: userLat, lng: userLon },
         zoom: 15
     });
+    geocoder = new google.maps.Geocoder;
 }
 
 //preceeds all jquery code
@@ -25,17 +29,25 @@ $(document).ready(function () {
         e.preventDefault();
 
         //testing button click works
-        console.log("submitted")
+        console.log("submitted");
 
-        //set searched value to variable
-        window.searchText = $('#searchBar').val();
-
-        // log searched value to test
-        console.log(window.searchText);
-
-
-
-
+        // if the search bar has a value in it..
+        if ($('#searchBar').val() !== "") {
+            //set searched value to variable
+            zipcode = $('#searchBar').val();
+            window.searchText = zipcode;
+            getLatLngByZipcode(zipcode);
+        }
+        // if the zipcode has been defined by the user sharing their location..
+        else if (zipcode !== "") {
+            window.searchText = zipcode;
+            getWeather();
+        }
+        // if there is no zipcode saved
+        else {
+            console.log("No location entered");
+            return;
+        }
 
         // Define the settings for the API call as per yelp API documentation
         var settings = {
@@ -57,6 +69,7 @@ $(document).ready(function () {
 
             //log your object, make sure it returns properly
             console.log(response.businesses)
+
 
 
             //-----------------------Restaurant 0 ---------------------------
@@ -372,13 +385,25 @@ $(document).ready(function () {
 
 
 
+            // center map on first result
+            var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: latlon
+            });
+
+            // add first 10 results to map
+            for (var i = 0; i < 10; i++) {
+                latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
+                var marker = new google.maps.Marker({
+                    position: latlon,
+                    map: map,
+                    title: results[i].name
+                });
+            }
+
+
         }).fail(function (err) { console.log("something went wrong") });
-
-
-
-
-
-
     });
 
 
@@ -394,6 +419,9 @@ $(document).ready(function () {
 
 
 
+
+=======
+
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page
@@ -404,6 +432,12 @@ $(document).ready(function () {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
+            geocodeLatLng(geocoder, map);
+
+            // reload the map centered on user's location
+            initMap();
+            // get the weather at the user's location
+            getWeather();
         };
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -416,13 +450,6 @@ $(document).ready(function () {
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
     });
 
-    $("#update-map").on("click", function (event) {
-        // update the map after getting the user's location
-        event.preventDefault();
-        initMap();
-        getWeather();
-    });
-
     // check for Geolocation support. This code was taken from google maps api page
     if (navigator.geolocation) {
         console.log('Geolocation is supported!');
@@ -430,11 +457,26 @@ $(document).ready(function () {
     else {
         console.log('Geolocation is not supported for this Browser/OS.');
     }
+  
 
+
+    // Get zipcode from shared location. This code was adapted from code taken from google maps api page
+    function geocodeLatLng(geocoder, map) {
+        var latlng = { lat: userLat, lng: userLon };
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === 'OK') {
+                zipcode = results[0].address_components[6].long_name;
+                // update zipcode in search field
+                $('#searchBar').val(zipcode);
+            }
+            else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
 
 
     // Portions of the weather api code were taken from the weather dashboard project
-
     function getWeather() {
         // query url for current weather
         var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
@@ -445,24 +487,24 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
 
-            // get current sky id
+            // get icon code for weather icon
             var currentSky = response.weather[0].id;
             var iconCode = getSkyIcon(currentSky);
-            console.log(iconCode);
-            // $("#current-sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+            // print weather icon to screen
+            $("#sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
             // get current date
             var currentDate = moment().format('l');
-            // add current date to heading of current city stats
-            // $("#current-city").append(currentDate);
+            // add date to screen
+            $("#weather").text("Weather: " + currentDate);
 
             // get current temp
             var currentTemp = response.main.temp;
             // Convert from kelvin to farenheit
             currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
             currentTemp = Math.round(currentTemp);
-            console.log(currentTemp);
-            // $("#current-temp").append("Temperature: " + currentTemp + " °F");
+            // add temp to screen
+            $("#temp").text("Temperature: " + currentTemp + " °F");
         });
     }
     // gets current weather based on api response. The things currently being returned are codes for the weather icon
@@ -500,4 +542,22 @@ $(document).ready(function () {
             return "02d";
         }
     }
+    //function to convert zipcode to Longitude and latitude
+    function getLatLngByZipcode(zipcode) {
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ 'address': 'zipcode' + zipcode }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                userLat = results[0].geometry.location.lat();
+                userLon = results[0].geometry.location.lng();
+                // get the weather at the zipcode the user entered
+                getWeather();
+            } else {
+                alert("Request failed.")
+            }
+
+        })
+    }
+
+
 });

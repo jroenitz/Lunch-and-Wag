@@ -1,4 +1,32 @@
+
+
+.restaurantName{
+
+font-size: 20px;
+
+}
+
+.restaurantImage{
+height: 200px;
+width: 200px;
+
+}
+
+.restaurantAddress{
+
+font-size: 15px;
+
+}
+
+.restaurantPhone{
+  
+}
+
+
+
+
 #map {
     height: 400px;
     max-width: 100%;
+
 }

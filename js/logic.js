@@ -409,19 +409,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-=======
-
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page

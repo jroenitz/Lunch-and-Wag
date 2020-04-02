@@ -94,17 +94,19 @@ $(document).ready(function () {
 
             //fill newly created elements
             name0El.text(name0)
-            image0El.attr('src', image0)
+            image0El.attr('src',image0)
             address0El.text(address0)
             phone0El.text(phone0)
-
-
+            $("#image0").attr('href', "https://www.google.com/maps/place/"+address0);
             //add class to style information 
             name0El.addClass("restaurantName")
             image0El.addClass("restaurantImage")
             address0El.addClass("restaurantAddress")
             phone0El.addClass("restaurantPhone")
-
+           
+            $("img").click(function(){
+                
+            })
 
 
             //add created div to div in html
@@ -149,7 +151,7 @@ $(document).ready(function () {
             image1El.attr('src', image1)
             address1El.text(address1)
             phone1El.text(phone1)
-
+            $("#image1").attr('href', "https://www.google.com/maps/place/"+address1);
 
             //add class to style information 
             name1El.addClass("restaurantName")
@@ -198,7 +200,7 @@ $(document).ready(function () {
             image2El.attr('src', image2)
             address2El.text(address2)
             phone2El.text(phone2)
-
+            $("#image2").attr('href', "https://www.google.com/maps/place/"+address2);
 
 
             //add class to style information 
@@ -248,7 +250,7 @@ $(document).ready(function () {
             image3El.attr('src', image3)
             address3El.text(address3)
             phone3El.text(phone3)
-
+            $("#image3").attr('href', "https://www.google.com/maps/place/"+address3);
 
 
             //add class to style information 
@@ -297,7 +299,7 @@ $(document).ready(function () {
             image4El.attr('src', image4)
             address4El.text(address4)
             phone4El.text(phone4)
-
+            $("#image4").attr('href', "https://www.google.com/maps/place/"+address4);
 
 
             //add class to style information 
@@ -347,7 +349,7 @@ $(document).ready(function () {
             image5El.attr('src', image5)
             address5El.text(address5)
             phone5El.text(phone5)
-
+            $("#image5").attr('href', "https://www.google.com/maps/place/"+address5);
 
 
             //add class to style information 

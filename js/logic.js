@@ -447,7 +447,7 @@ $(document).ready(function () {
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
         
- // Define the settings for the API call as per yelp API documentation
+ // NEW API CALL SETTINGS FOR 
  var settings = {
     "async": true,
     "crossDomain": true,

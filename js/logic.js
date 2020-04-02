@@ -50,31 +50,34 @@ $(document).ready(function () {
         }
 
         // Define the settings for the API call as per yelp API documentation
-if ($('#searchBar').val() == "") { var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
-    "method": "GET",
-    "headers": {
-        "authorization": "Bearer mG2W4beNkid7kw7VedFpAGl3pnGUjsxvDHCalMUshB7fkFCSQTpeVxSMjtT5QOBCOoJPiYTPuG6o3B3qh6148amFphWJmTjtJdA7TLtAvr9VVxz4NjJG57EzQkWCXnYx",
-        "cache-control": "no-cache",
-        "postman-token": "3f23d8c3-ce48-a224-50c0-14b9094948fc"
-    }
-}
+        if ($('#searchBar').val() !== "") {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
+                "method": "GET",
+                "headers": {
+                    "authorization": "Bearer mG2W4beNkid7kw7VedFpAGl3pnGUjsxvDHCalMUshB7fkFCSQTpeVxSMjtT5QOBCOoJPiYTPuG6o3B3qh6148amFphWJmTjtJdA7TLtAvr9VVxz4NjJG57EzQkWCXnYx",
+                    "cache-control": "no-cache",
+                    "postman-token": "3f23d8c3-ce48-a224-50c0-14b9094948fc"
+                }
+            }
 
-}else{ var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${userLat},${userLon}`,
-    "method": "GET",
-    "headers": {
-        "authorization": "Bearer mG2W4beNkid7kw7VedFpAGl3pnGUjsxvDHCalMUshB7fkFCSQTpeVxSMjtT5QOBCOoJPiYTPuG6o3B3qh6148amFphWJmTjtJdA7TLtAvr9VVxz4NjJG57EzQkWCXnYx",
-        "cache-control": "no-cache",
-        "postman-token": "3f23d8c3-ce48-a224-50c0-14b9094948fc"
-    }
-}}
+        } else {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${userLat},${userLon}`,
+                "method": "GET",
+                "headers": {
+                    "authorization": "Bearer mG2W4beNkid7kw7VedFpAGl3pnGUjsxvDHCalMUshB7fkFCSQTpeVxSMjtT5QOBCOoJPiYTPuG6o3B3qh6148amFphWJmTjtJdA7TLtAvr9VVxz4NjJG57EzQkWCXnYx",
+                    "cache-control": "no-cache",
+                    "postman-token": "3f23d8c3-ce48-a224-50c0-14b9094948fc"
+                }
+            }
+        }
 
-   
+
 
 
         // Use AJAX to perform Yelp API call
@@ -100,6 +103,10 @@ if ($('#searchBar').val() == "") { var settings = {
                     title: results[i].name
                 });
             }
+
+
+            // show restaurants
+            $("#restaurant-container").removeClass("hidden");
 
             //-----------------------Restaurant 0 ---------------------------
 
@@ -460,123 +467,123 @@ if ($('#searchBar').val() == "") { var settings = {
         };
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
-        
-
-});
-
-
-
-
 
 
     });
 
-    // check for Geolocation support. This code was taken from google maps api page
-    if (navigator.geolocation) {
-        console.log('Geolocation is supported!');
+
+
+
+
+
+});
+
+// check for Geolocation support. This code was taken from google maps api page
+if (navigator.geolocation) {
+    console.log('Geolocation is supported!');
+}
+else {
+    console.log('Geolocation is not supported for this Browser/OS.');
+}
+
+// Get zipcode from shared location. This code was adapted from code taken from google maps api page
+function geocodeLatLng(geocoder, map) {
+    var latlng = { lat: userLat, lng: userLon };
+    geocoder.geocode({ 'location': latlng }, function (results, status) {
+        if (status === 'OK') {
+            zipcode = results[0].address_components[6].long_name;
+            // update zipcode in search field
+            $('#searchBar').val("");
+        }
+        else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
+}
+
+
+
+// Portions of the weather api code were taken from the weather dashboard project
+function getWeather() {
+    // query url for current weather
+    var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
+
+    // call for current weather
+    $.ajax({
+        url: weatherQueryUrl,
+        method: "GET"
+    }).then(function (response) {
+
+        // get icon code for weather icon
+        var currentSky = response.weather[0].id;
+        var iconCode = getSkyIcon(currentSky);
+        // print weather icon to screen
+        $("#sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+
+        // get current date
+        var currentDate = moment().format('l');
+        // add date to screen
+        $("#weather").text("Weather: " + currentDate);
+
+        // get current temp
+        var currentTemp = response.main.temp;
+        // Convert from kelvin to farenheit
+        currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
+        currentTemp = Math.round(currentTemp);
+        // add temp to screen
+        $("#temp").text("Temperature: " + currentTemp + " °F");
+    });
+}
+// gets current weather based on api response. The things currently being returned are codes for the weather icon
+function getSkyIcon(b) {
+    var a = b.toString();
+    // Thunderstorm
+    if (a[0] == "2") {
+        return "11d";
     }
-    else {
-        console.log('Geolocation is not supported for this Browser/OS.');
+    // Drizzle
+    else if (a[0] == "3") {
+        return "09d";
     }
-
-    // Get zipcode from shared location. This code was adapted from code taken from google maps api page
-    function geocodeLatLng(geocoder, map) {
-        var latlng = { lat: userLat, lng: userLon };
-        geocoder.geocode({ 'location': latlng }, function (results, status) {
-            if (status === 'OK') {
-                zipcode = results[0].address_components[6].long_name;
-                // update zipcode in search field
-                $('#searchBar').val("");
-            }
-            else {
-                window.alert('Geocoder failed due to: ' + status);
-            }
-        });
+    // 511 is freezing rain, 6xx is snow
+    else if (a == 511 || a[0] == 6) {
+        return "13d";
     }
-
-
-
-    // Portions of the weather api code were taken from the weather dashboard project
-    function getWeather() {
-        // query url for current weather
-        var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
-
-        // call for current weather
-        $.ajax({
-            url: weatherQueryUrl,
-            method: "GET"
-        }).then(function (response) {
-
-            // get icon code for weather icon
-            var currentSky = response.weather[0].id;
-            var iconCode = getSkyIcon(currentSky);
-            // print weather icon to screen
-            $("#sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
-
-            // get current date
-            var currentDate = moment().format('l');
-            // add date to screen
-            $("#weather").text("Weather: " + currentDate);
-
-            // get current temp
-            var currentTemp = response.main.temp;
-            // Convert from kelvin to farenheit
-            currentTemp = (currentTemp - 273.15) * (9 / 5) + 32;
-            currentTemp = Math.round(currentTemp);
-            // add temp to screen
-            $("#temp").text("Temperature: " + currentTemp + " °F");
-        });
+    // Rain
+    else if (a[0] == 5) {
+        return "10d";
     }
-    // gets current weather based on api response. The things currently being returned are codes for the weather icon
-    function getSkyIcon(b) {
-        var a = b.toString();
-        // Thunderstorm
-        if (a[0] == "2") {
-            return "11d";
-        }
-        // Drizzle
-        else if (a[0] == "3") {
-            return "09d";
-        }
-        // 511 is freezing rain, 6xx is snow
-        else if (a == 511 || a[0] == 6) {
-            return "13d";
-        }
-        // Rain
-        else if (a[0] == 5) {
-            return "10d";
-        }
-        else if (a == 781) {
-            return // TORNADO
-        }
-        // mist/fog/dust except 781 is tornado
-        else if (a[0] == 7) {
-            return "50d";
-        }
-        // clear
-        else if (a == 800) {
-            return "01d";
-        }
-        // clouds
-        else if (a[0] == 8) {
-            return "02d";
-        }
+    else if (a == 781) {
+        return // TORNADO
     }
-    //function to convert zipcode to Longitude and latitude
-    function getLatLngByZipcode(zipcode) {
-        var geocoder = new google.maps.Geocoder();
-
-        geocoder.geocode({ 'address': 'zipcode' + zipcode }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                userLat = results[0].geometry.location.lat();
-                userLon = results[0].geometry.location.lng();
-                // get the weather at the zipcode the user entered
-                getWeather();
-            } else {
-                alert("Request failed.")
-            }
-
-        })
+    // mist/fog/dust except 781 is tornado
+    else if (a[0] == 7) {
+        return "50d";
     }
+    // clear
+    else if (a == 800) {
+        return "01d";
+    }
+    // clouds
+    else if (a[0] == 8) {
+        return "02d";
+    }
+}
+//function to convert zipcode to Longitude and latitude
+function getLatLngByZipcode(zipcode) {
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'address': 'zipcode' + zipcode }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            userLat = results[0].geometry.location.lat();
+            userLon = results[0].geometry.location.lng();
+            // get the weather at the zipcode the user entered
+            getWeather();
+        } else {
+            alert("Request failed.")
+        }
+
+    })
+}
 
 

@@ -50,7 +50,7 @@ $(document).ready(function () {
         }
 
         // Define the settings for the API call as per yelp API documentation
-if (userLat == 30.275371 && userLon == -97.740110) { var settings = {
+if ($('#searchBar').val() == "") { var settings = {
     "async": true,
     "crossDomain": true,
     "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+friendly,patio&categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
@@ -486,7 +486,7 @@ if (userLat == 30.275371 && userLon == -97.740110) { var settings = {
             if (status === 'OK') {
                 zipcode = results[0].address_components[6].long_name;
                 // update zipcode in search field
-                $('#searchBar').val(zipcode);
+                $('#searchBar').val("");
             }
             else {
                 window.alert('Geocoder failed due to: ' + status);

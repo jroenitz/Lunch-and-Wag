@@ -1,32 +1,34 @@
+#logo {
+    height: 35px;
+}
+
 #map {
     height: 400px;
     max-width: 100%;
+    margin-bottom: 10px;
 }
 
-.restaurantName{
-
-font-size: 20px;
-
+.restaurantName {
+    font-size: 20px;
 }
 
-.restaurantImage{
-height: 200px;
-width: 200px;
-
+.restaurantImage {
+    max-height: 250px;
+    max-width: 250px;
 }
 
-.restaurantAddress{
-
-font-size: 15px;
-
+.restaurantAddress {
+    font-size: 15px;
 }
 
-.restaurantPhone{
+.restaurantPhone {
   
 }
 
+.center {
+    margin: 0 auto;
+}
 
 .hidden {
     display: none;
 }
-

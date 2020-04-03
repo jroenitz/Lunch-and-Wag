@@ -111,7 +111,7 @@ $(document).ready(function () {
 
                 name = results[i].name
                 image = results[i].image_url
-                address = results[i].location.address1
+                address = results[i].location.display_address
                 phone = results[i].display_phone
                 console.log("Name: " + name)
                 console.log("Image: " + image)

@@ -15,7 +15,6 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>Lunch and Wag</title>
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/801ac47641.js" crossorigin="anonymous"></script>
@@ -30,7 +29,7 @@
         <div class="top-bar-left">
             <ul class="menu" data-responsive-menu="accordion">
                 <li><img src="css/image.png" alt="Lunch and Wag logo" id="logo"/></li>
-                <li class="menu-text">Lunch and Wag<i class="fas fa-utensils"></i></li>
+                <li class="menu-text">Lunch and Wag <i class="fas fa-utensils"></i></li>
             </ul>
         </div>
     </div>
@@ -67,18 +66,13 @@
                                 </label>
 
                                 <button class="button" id="share-location">Share Location</button>
-                                <button class="button" id="searchButton">Find a random restaurant nearby </button>
-                                <button id="searchButton">Search</button>
-
+                                <button class="button" id="searchButton">Find restaurants nearby </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="row">
-                <button class="button" id="share-location">Share Location</button>
-
-            </div>
+            
         </div>
 
     </div>
@@ -88,7 +82,7 @@
     </div>
 
     <!-- Begin Restaurant container -->
-<div class="hidden">
+<div class="hidden" id="restaurant-container">
     <div class="row column">
         <p class="lead">Top rated restaurants</p>
     </div>

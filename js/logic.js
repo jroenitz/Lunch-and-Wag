@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     //click handler for submit button
     $("#searchButton").on("click", function (e) {
-
+        $("#restaurant-container").removeClass("hidden");
         //keeps from reloading page 
         e.preventDefault();
 

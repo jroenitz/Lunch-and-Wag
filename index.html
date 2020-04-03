@@ -17,6 +17,9 @@
     <title>Lunch and Wag</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://kit.fontawesome.com/801ac47641.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -27,7 +30,7 @@
         <div class="top-bar-left">
             <ul class="menu" data-responsive-menu="accordion">
                 <li><img src="css/image.png" alt="Lunch and Wag logo" id="logo"/></li>
-                <li class="menu-text">Lunch and Wag</li>
+                <li class="menu-text">Lunch and Wag<i class="fas fa-utensils"></i></li>
             </ul>
         </div>
     </div>
@@ -62,7 +65,11 @@
                                 <label>Where you at?
                                     <input type="text" placeholder="Your Zip Code" id="searchBar">
                                 </label>
+
+                                <button class="button" id="share-location">Share Location</button>
+                                <button class="button" id="searchButton">Find a random restaurant nearby </button>
                                 <button id="searchButton">Search</button>
+
                             </div>
                         </div>
                     </form>
@@ -81,67 +88,20 @@
     </div>
 
     <!-- Begin Restaurant container -->
-    <div id="restaurant-container" class="hidden">
-        <div class="row column">
-            <p class="lead">Top rated restaurants</p>
-        </div>
-
-        <div class="row small-up-1 medium-up-2 large-up-3">
-            <div class="column">
-                <div class="callout">
-                    <p id="name0"></p>
-                    <p id="image0"><img /></p>
-                    <p class="lead" id="address0"></p>
-                    <p class="subheader" id="phone0"></p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="callout">
-                    <p id="name1"></p>
-                    <p id="image1"><img /></p>
-                    <p class="lead" id="address1"></p>
-                    <p class="subheader" id="phone1"></p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="callout">
-                    <p id="name2"></p>
-                    <p id="image2"><img /></p>
-                    <p class="lead" id="address2"></p>
-                    <p class="subheader" id="phone2"></p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="callout">
-                    <p id="name3"></p>
-                    <p id="image3"><img /></p>
-                    <p class="lead" id="address3"></p>
-                    <p class="subheader" id="phone3"></p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="callout">
-                    <p id="name4"></p>
-                    <p id="image4"><img /></p>
-                    <p class="lead" id="address4"></p>
-                    <p class="subheader" id="phone4"></p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="callout">
-                    <p id="name5"></p>
-                    <p id="image5"><img /></p>
-                    <p class="lead" id="address5"></p>
-                    <p class="subheader" id="phone5"></p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row column">
-            <a class="button hollow expanded">Give me more choices!</a>
-        </div>
+<div class="hidden">
+    <div class="row column">
+        <p class="lead">Top rated restaurants</p>
     </div>
+
+    <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3" >
+ 
+    </div>
+
+    <div class="row column">
+        <a class="button hollow expanded" id="loadMore">Give me more choices!</a>
+    </div>
+</div>
+
     <footer>
 
         <div class="row">

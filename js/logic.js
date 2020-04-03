@@ -235,7 +235,10 @@ function getWeather() {
         var currentSky = response.weather[0].id;
         var iconCode = getSkyIcon(currentSky);
         // print weather icon to screen
+
+
         $("#sky-icon").attr("src", "https://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+
 
         // get current date
         var currentDate = moment().format('l');

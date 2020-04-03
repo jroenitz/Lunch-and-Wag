@@ -42,6 +42,7 @@ $(document).ready(function () {
         else if (zipcode !== "") {
             window.searchText = zipcode;
             getWeather();
+            $(".center").removeClass("hidden");
         }
         // if there is no zipcode saved
         else {
@@ -165,8 +166,7 @@ $(document).ready(function () {
 
             // reload the map centered on user's location
             initMap();
-            // get the weather at the user's location
-            getWeather();
+
         };
         console.log(userLat)
         console.log(userLon)
@@ -224,7 +224,6 @@ function geocodeLatLng(geocoder, map) {
 function getWeather() {
     // query url for current weather
     var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLon + "&appid=a07b059ae0ff859a91d785bcde02804c";
-
     // call for current weather
     $.ajax({
         url: weatherQueryUrl,
@@ -240,7 +239,8 @@ function getWeather() {
         // get current date
         var currentDate = moment().format('l');
         // add date to screen
-        $("#weather").text("Weather: " + currentDate);
+        $("#date").text(currentDate);
+        // $("#weather").text("Weather:");
 
         // get current temp
         var currentTemp = response.main.temp;
@@ -249,6 +249,10 @@ function getWeather() {
         currentTemp = Math.round(currentTemp);
         // add temp to screen
         $("#temp").text("Temperature: " + currentTemp + " °F");
+
+        // get current wind
+        var wind = response.wind.speed;
+        $("#wind").text("Wind speed: " + wind + " MPH");
     });
 }
 // gets current weather based on api response. The things currently being returned are codes for the weather icon
@@ -296,6 +300,7 @@ function getLatLngByZipcode(zipcode) {
             userLon = results[0].geometry.location.lng();
             // get the weather at the zipcode the user entered
             getWeather();
+            $(".center").removeClass("hidden");
         } else {
             alert("Request failed.")
         }

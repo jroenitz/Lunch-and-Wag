@@ -2,10 +2,23 @@
     height: 35px;
 }
 
+body {
+    background-color: #f4faff;
+    font-family: 'Lato', sans-serif;
+}
+
+.top-bar, .top-bar ul {
+    background-color: transparent;
+}
+
 #map {
     height: 400px;
     max-width: 100%;
     margin-bottom: 10px;
+}
+
+.callout.secondary {
+    margin: 0 15px;
 }
 
 .restaurantName {
@@ -21,12 +34,23 @@
     font-size: 15px;
 }
 
-.restaurantPhone {
-  
+#date {
+    font-size: 24px;
 }
 
+
 .center {
-    margin: 0 auto;
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    border: solid 1px transparent;
+    border-radius: 20px;
+    margin: 0 auto 15px;
+    width: 250px;
+    background-color: #7574743d;
+}
+
+#copyright {
+    text-align: center;
 }
 
 .hidden {

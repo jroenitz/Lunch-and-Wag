@@ -90,10 +90,13 @@ $(document).ready(function () {
             // center map on first result
             var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
+                zoom: 12,
                 center: latlon
             });
 
+            var display = $('#my-lists');
+
+            var html = '';
             // add first 10 results to map
             for (var i = 0; i < 10; i++) {
                 latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
@@ -102,341 +105,52 @@ $(document).ready(function () {
                     map: map,
                     title: results[i].name
                 });
-            }
-
-
-            // show restaurants
-            $("#restaurant-container").removeClass("hidden");
-
-            //-----------------------Restaurant 0 ---------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name0 = response.businesses[0].name
-            var image0 = response.businesses[0].image_url
-            // var location = response.businesses[0].
-            var address0 = response.businesses[0].location.address1
-            var phone0 = response.businesses[0].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name0)
-            console.log("Image: " + image0)
-            console.log("Address: " + address0)
-            console.log("Phone: " + phone0)
-
-            //declare variables that will create new html elements 
-            var name0El = $("<h4>")
-            var image0El = $("<img>")
-            var address0El = $("<p>")
-            var phone0El = $("<p>")
-
-
-            //fill newly created elements
-            name0El.text(name0)
-            image0El.attr('src', image0)
-            address0El.text(address0)
-            phone0El.text(phone0)
-
-
-            //add class to style information 
-            name0El.addClass("restaurantName")
-            image0El.addClass("restaurantImage")
-            address0El.addClass("restaurantAddress")
-            phone0El.addClass("restaurantPhone")
-
-
-
-            //add created div to div in html
-            $("#name0").html(name0El);
-            $("#image0").html(image0El);
-            $("#address0").html(address0El);
-            $("#phone0").html(phone0El);
-
-
-
-            //---------------------RESTAURANT 1-----------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name1 = response.businesses[1].name
-            var image1 = response.businesses[1].image_url
-            // var location = response.businesses[1].
-            var address1 = response.businesses[1].location.address1
-            var phone1 = response.businesses[1].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name1)
-            console.log("Image: " + image1)
-            console.log("Address: " + address1)
-            console.log("Phone: " + phone1)
-
-            //declare variables that will create new html elements 
-            var name1El = $("<h4>")
-            var image1El = $("<img>")
-            var address1El = $("<p>")
-            var phone1El = $("<p>")
-
-
-            //fill newly created elements
-            name1El.text(name1)
-            image1El.attr('src', image1)
-            address1El.text(address1)
-            phone1El.text(phone1)
-
-
-            //add class to style information 
-            name1El.addClass("restaurantName")
-            image1El.addClass("restaurantImage")
-            address1El.addClass("restaurantAddress")
-            phone1El.addClass("restaurantPhone")
-
-
-            //add created div to div in html
-            $("#name1").html(name1El);
-            $("#image1").html(image1El);
-            $("#address1").html(address1El);
-            $("#phone1").html(phone1El);
-
-            //---------------------RESTAURANT 2-----------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name2 = response.businesses[2].name
-            var image2 = response.businesses[2].image_url
-            // var location = response.businesses[0].
-            var address2 = response.businesses[2].location.address1
-            var phone2 = response.businesses[2].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name2)
-            console.log("Image: " + image2)
-            console.log("Address: " + address2)
-            console.log("Phone: " + phone2)
-
-            //declare variables that will create new html elements 
-            var name2El = $("<h4>")
-            var image2El = $("<img>")
-            var address2El = $("<p>")
-            var phone2El = $("<p>")
-
-
-            //fill newly created elements
-            name2El.text(name2)
-            image2El.attr('src', image2)
-            address2El.text(address2)
-            phone2El.text(phone2)
-
-
-
-            //add class to style information 
-            name2El.addClass("restaurantName")
-            image2El.addClass("restaurantImage")
-            address2El.addClass("restaurantAddress")
-            phone2El.addClass("restaurantPhone")
-
-
-            //add created div to div in html
-            $("#name2").html(name2El);
-            $("#image2").html(image2El);
-            $("#address2").html(address2El);
-            $("#phone2").html(phone2El);
-
-            //---------------------RESTAURANT 3-----------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name3 = response.businesses[3].name
-            var image3 = response.businesses[3].image_url
-            // var location = response.businesses[3].
-            var address3 = response.businesses[3].location.address1
-            var phone3 = response.businesses[3].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name3)
-            console.log("Image: " + image3)
-            console.log("Address: " + address3)
-            console.log("Phone: " + phone3)
-
-            //declare variables that will create new html elements 
-            var name3El = $("<h4>")
-            var image3El = $("<img>")
-            var address3El = $("<p>")
-            var phone3El = $("<p>")
-
-
-            //fill newly created elements
-            name3El.text(name3)
-            image3El.attr('src', image3)
-            address3El.text(address3)
-            phone3El.text(phone3)
-
-
-
-            //add class to style information 
-            name3El.addClass("restaurantName")
-            image3El.addClass("restaurantImage")
-            address3El.addClass("restaurantAddress")
-            phone3El.addClass("restaurantPhone")
-
-            //add created div to div in html
-            $("#name3").html(name3El);
-            $("#image3").html(image3El);
-            $("#address3").html(address3El);
-            $("#phone3").html(phone3El);
-
-            //---------------------RESTAURANT 4-----------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name4 = response.businesses[4].name
-            var image4 = response.businesses[4].image_url
-            // var location = response.businesses[4].
-            var address4 = response.businesses[4].location.address1
-            var phone4 = response.businesses[4].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name4)
-            console.log("Image: " + image4)
-            console.log("Address: " + address4)
-            console.log("Phone: " + phone4)
-
-            //declare variables that will create new html elements 
-            var name4El = $("<h4>")
-            var image4El = $("<img>")
-            var address4El = $("<p>")
-            var phone4El = $("<p>")
-
-
-            //fill newly created elements
-            name4El.text(name4)
-            image4El.attr('src', image4)
-            address4El.text(address4)
-            phone4El.text(phone4)
-
-
-
-            //add class to style information 
-            name4El.addClass("restaurantName")
-            image4El.addClass("restaurantImage")
-            address4El.addClass("restaurantAddress")
-            phone4El.addClass("restaurantPhone")
-
-
-            //add created div to div in html
-            $("#name4").html(name4El);
-            $("#image4").html(image4El);
-            $("#address4").html(address4El);
-            $("#phone4").html(phone4El);
-
-            //---------------------RESTAURANT 5-----------------------------
-
-
-            //use the json object to go in and set variables
-
-
-            var name5 = response.businesses[5].name
-            var image5 = response.businesses[5].image_url
-            // var location = response.businesses[5].
-            var address5 = response.businesses[5].location.address1
-            var phone5 = response.businesses[5].display_phone
-
-
-
-
-
-            //console.log to check if variables are coorect 
-            console.log("Name: " + name5)
-            console.log("Image: " + image5)
-            console.log("Address5: " + address5)
-            console.log("Phone: " + phone5)
-
-            //declare variables that will create new html elements 
-            var name5El = $("<h4>")
-            var image5El = $("<img>")
-            var address5El = $("<p>")
-            var phone5El = $("<p>")
-
-
-            //fill newly created elements
-            name5El.text(name5)
-            image5El.attr('src', image5)
-            address5El.text(address5)
-            phone5El.text(phone5)
-
-
-
-            //add class to style information 
-            name5El.addClass("restaurantName")
-            image5El.addClass("restaurantImage")
-            address5El.addClass("restaurantAddress")
-            phone5El.addClass("restaurantPhone")
-
-            //add created div to div in html
-            $("#name5").html(name5El);
-            $("#image5").html(image5El);
-            $("#address5").html(address5El);
-            $("#phone5").html(phone5El);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                name = results[i].name
+                image = results[i].image_url
+                address = results[i].location.display_address
+                phone = results[i].display_phone
+                console.log("Name: " + name)
+                console.log("Image: " + image)
+                console.log("Address: " + address)
+                console.log("Phone: " + phone);
+                html += '<div class="column">';
+                html += ' <div class="callout">';
+                html += '  <p>' + name + '</p>';
+                html += '  <a target="_blank" href="' + 'https://www.google.com/maps/place/' + address + '"><img class="restaurantImage" src="' + image + '" alt="' + name + '"></a>';
+                html += '  <p class="lead">' + address + '</p>';
+                html += '  <p class="subheader">' + phone + '</p>';
+                html += ' </div>';
+                html += '</div>';
+           }
+            display.html(html);
+
+            $("#loadMore").one("click", function () {
+                for (var i = 10; i < 20; i++) {
+                    name = results[i].name
+                    image = results[i].image_url
+                    address = results[i].location.address1
+                    phone = results[i].display_phone
+                    console.log("Name: " + name)
+                    console.log("Image: " + image)
+                    console.log("Address: " + address)
+                    console.log("Phone: " + phone);
+
+                    html += '<div class="column">';
+                    html += ' <div class="callout">';
+                    html += '  <p>' + name + '</p>';
+                    html += '  <a target="_blank" href="' + 'https://www.google.com/maps/place/' + address + '"><img class="restaurantImage" src="' + image + '" alt="' + name + '"></a>';
+                    html += '  <p class="lead">' + address + '</p>';
+                    html += '  <p class="subheader">' + phone + '</p>';
+                    html += ' </div>';
+                    html += '</div>';
+
+
+                }
+                display.html(html)
+            })
         }).fail(function (err) { console.log("something went wrong") });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page
@@ -489,11 +203,14 @@ else {
 // Get zipcode from shared location. This code was adapted from code taken from google maps api page
 function geocodeLatLng(geocoder, map) {
     var latlng = { lat: userLat, lng: userLon };
+    console.log(latlng)
     geocoder.geocode({ 'location': latlng }, function (results, status) {
-        if (status === 'OK') {
-            zipcode = results[0].address_components[6].long_name;
+        console.log(results)
+        if (status =google.maps.GeocoderStatus.OK) {
+            zipcode = results[0].address_components[7].long_name;
+            console.log(zipcode)
             // update zipcode in search field
-            $('#searchBar').val("");
+            $('#searchBar').val(zipcode);
         }
         else {
             window.alert('Geocoder failed due to: ' + status);
@@ -518,7 +235,9 @@ function getWeather() {
         var currentSky = response.weather[0].id;
         var iconCode = getSkyIcon(currentSky);
         // print weather icon to screen
+
         $("#sky-icon").attr("src", "https://openweathermap.org/img/wn/" + iconCode + "@2x.png");
+
 
         // get current date
         var currentDate = moment().format('l');
@@ -582,8 +301,7 @@ function getLatLngByZipcode(zipcode) {
         } else {
             alert("Request failed.")
         }
-
     })
-}
+
 
 

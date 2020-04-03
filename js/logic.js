@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     //click handler for submit button
     $("#searchButton").on("click", function (e) {
-
+        $("#restaurant-container").removeClass("hidden");
         //keeps from reloading page 
         e.preventDefault();
 
@@ -236,6 +236,7 @@ function getWeather() {
         var iconCode = getSkyIcon(currentSky);
         // print weather icon to screen
 
+
         $("#sky-icon").attr("src", "https://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
 
@@ -305,3 +306,4 @@ function getLatLngByZipcode(zipcode) {
 
 
 
+}

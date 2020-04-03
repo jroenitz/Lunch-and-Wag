@@ -94,11 +94,9 @@ $(document).ready(function () {
                 center: latlon
             });
 
-
             var display = $('#my-lists');
 
             var html = '';
-
             // add first 10 results to map
             for (var i = 0; i < 10; i++) {
                 latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
@@ -107,8 +105,6 @@ $(document).ready(function () {
                     map: map,
                     title: results[i].name
                 });
-
-
                 name = results[i].name
                 image = results[i].image_url
                 address = results[i].location.display_address
@@ -117,7 +113,6 @@ $(document).ready(function () {
                 console.log("Image: " + image)
                 console.log("Address: " + address)
                 console.log("Phone: " + phone);
-
                 html += '<div class="column">';
                 html += ' <div class="callout">';
                 html += '  <p>' + name + '</p>';
@@ -126,9 +121,7 @@ $(document).ready(function () {
                 html += '  <p class="subheader">' + phone + '</p>';
                 html += ' </div>';
                 html += '</div>';
-
-
-            }
+           }
             display.html(html);
 
             $("#loadMore").one("click", function () {
@@ -242,6 +235,7 @@ function getWeather() {
         var currentSky = response.weather[0].id;
         var iconCode = getSkyIcon(currentSky);
         // print weather icon to screen
+
         $("#sky-icon").attr("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
 
         // get current date
@@ -306,9 +300,7 @@ function getLatLngByZipcode(zipcode) {
         } else {
             alert("Request failed.")
         }
-
     })
 
-}
 
 

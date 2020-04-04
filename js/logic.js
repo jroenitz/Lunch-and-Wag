@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 
     //check if JS is loaded properly 
-    console.log("ready!")
+    console.log("ready!");
 
 
     //click handler for submit button
@@ -31,27 +31,12 @@ $(document).ready(function () {
         //testing button click works
         console.log("submitted");
 
-        // if the search bar has a value in it..
-        if ($('#searchBar').val() !== "") {
-            //set searched value to variable
-            zipcode = $('#searchBar').val();
-            window.searchText = zipcode;
-            getLatLngByZipcode(zipcode);
-        }
-        // if the zipcode has been defined by the user sharing their location..
-        else if (zipcode !== "") {
-            window.searchText = zipcode;
-            getWeather();
-            $(".center").removeClass("hidden");
-        }
-        // if there is no zipcode saved
-        else {
-            console.log("No location entered");
-            return;
-        }
 
         // Define the settings for the API call as per yelp API documentation
         if ($('#searchBar').val() !== "") {
+            zipcode = $('#searchBar').val();
+            window.searchText = zipcode;
+            getLatLngByZipcode(zipcode);
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -86,7 +71,7 @@ $(document).ready(function () {
             let results = response.businesses;
 
             //log your object, make sure it returns properly
-            console.log(response.businesses)
+            console.log(response.businesses);
 
             // center map on first result
             var latlon = { lat: results[0].coordinates.latitude, lng: results[0].coordinates.longitude };
@@ -94,6 +79,9 @@ $(document).ready(function () {
                 zoom: 12,
                 center: latlon
             });
+
+            getWeather();
+            $(".center").removeClass("hidden");
 
             var display = $('#my-lists');
 
@@ -106,13 +94,13 @@ $(document).ready(function () {
                     map: map,
                     title: results[i].name
                 });
-                name = results[i].name
-                image = results[i].image_url
-                address = results[i].location.display_address
-                phone = results[i].display_phone
-                console.log("Name: " + name)
-                console.log("Image: " + image)
-                console.log("Address: " + address)
+                name = results[i].name;
+                image = results[i].image_url;
+                address = results[i].location.display_address;
+                phone = results[i].display_phone;
+                console.log("Name: " + name);
+                console.log("Image: " + image);
+                console.log("Address: " + address);
                 console.log("Phone: " + phone);
                 html += '<div class="column">';
                 html += ' <div class="callout">';
@@ -127,13 +115,13 @@ $(document).ready(function () {
 
             $("#loadMore").one("click", function () {
                 for (var i = 10; i < 20; i++) {
-                    name = results[i].name
-                    image = results[i].image_url
-                    address = results[i].location.address1
-                    phone = results[i].display_phone
-                    console.log("Name: " + name)
-                    console.log("Image: " + image)
-                    console.log("Address: " + address)
+                    name = results[i].name;
+                    image = results[i].image_url;
+                    address = results[i].location.address1;
+                    phone = results[i].display_phone;
+                    console.log("Name: " + name);
+                    console.log("Image: " + image);
+                    console.log("Address: " + address);
                     console.log("Phone: " + phone);
 
                     html += '<div class="column">';
@@ -147,7 +135,7 @@ $(document).ready(function () {
 
 
                 }
-                display.html(html)
+                display.html(html);
             })
         }).fail(function (err) { console.log("something went wrong") });
     });
@@ -157,19 +145,24 @@ $(document).ready(function () {
         // gets the users gps location. This code was adapted from code taken from google maps api page
         event.preventDefault();
         var startPos;
+    
+        getWeather();
+        $(".center").removeClass("hidden");
+
+        // clear out the search bar
+        $('#searchBar').val("");
 
         var geoSuccess = function (position) {
             startPos = position;
             userLat = startPos.coords.latitude;
             userLon = startPos.coords.longitude;
-            geocodeLatLng(geocoder, map);
 
             // reload the map centered on user's location
             initMap();
 
         };
-        console.log(userLat)
-        console.log(userLon)
+        console.log(userLat);
+        console.log(userLon);
 
         var geoError = function (error) {
             console.log('Error occurred. Error code: ' + error.code);
@@ -181,14 +174,7 @@ $(document).ready(function () {
         };
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
-
-
     });
-
-
-
-
-
 
 });
 
@@ -199,26 +185,6 @@ if (navigator.geolocation) {
 else {
     console.log('Geolocation is not supported for this Browser/OS.');
 }
-
-// Get zipcode from shared location. This code was adapted from code taken from google maps api page
-function geocodeLatLng(geocoder, map) {
-    var latlng = { lat: userLat, lng: userLon };
-    console.log(latlng)
-    geocoder.geocode({ 'location': latlng }, function (results, status) {
-        console.log(results)
-        if (status =google.maps.GeocoderStatus.OK) {
-            zipcode = results[0].address_components[7].long_name;
-            console.log(zipcode)
-            // update zipcode in search field
-            $('#searchBar').val(zipcode);
-        }
-        else {
-            window.alert('Geocoder failed due to: ' + status);
-        }
-    });
-}
-
-
 
 // Portions of the weather api code were taken from the weather dashboard project
 function getWeather() {
@@ -278,7 +244,7 @@ function getSkyIcon(b) {
         return "10d";
     }
     else if (a == 781) {
-        return // TORNADO
+        return; // TORNADO
     }
     // mist/fog/dust except 781 is tornado
     else if (a[0] == 7) {
@@ -307,8 +273,6 @@ function getLatLngByZipcode(zipcode) {
         } else {
             alert("Request failed.")
         }
-    })
-
-
+    });
 
 }

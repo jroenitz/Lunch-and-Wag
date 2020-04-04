@@ -122,6 +122,7 @@ $(document).ready(function () {
                     linkEl.append( // inside it, append an image
                         $('<img>') // new image
                           .attr('src', image) // set image SRC attribute
+                        .addClass("restaurantImage)
                       ); // end append
                     var addressEl = $('<p></p>').text(address).addClass('lead');
                     var phoneEl = $('<p></p>').text(phone).addClass('subheader');

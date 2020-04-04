@@ -17,6 +17,8 @@
     <title>Lunch and Wag</title>
 
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Mono:wght@500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/801ac47641.js" crossorigin="anonymous"></script>
 
@@ -25,6 +27,7 @@
 <body>
 
     <!-- Navigation -->
+
 
     <div class="top-bar" id="resturantMenu">
         <div class="top-bar-left">
@@ -48,8 +51,9 @@
 
             <hr>
             <div class="center hidden">
-                <h4 id="weather"></h4>
+                <div id="date"></div>
                 <div id="temp"></div>
+                <div id="wind"></div>
                 <img id="sky-icon" />
             </div>
 
@@ -87,13 +91,16 @@
     </div>
 
     <!-- Begin Restaurant container -->
-<div class="hidden" id="restaurant-container">
-    <div class="row column">
-        <p class="lead">Top rated restaurants</p>
-    </div>
 
-    <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3" >
- 
+    <div class="hidden" id="restaurant-container">
+        <div class="row column">
+            <p class="lead">Top rated restaurants</p>
+        </div>
+        <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3">
+        </div>
+        <div class="row column">
+            <a class="button hollow expanded" id="loadMore">Give me more choices!</a>
+        </div>
     </div>
 
     <div class="row column">
@@ -104,20 +111,7 @@
     <footer>
 
         <div class="row">
-
-            <div class="medium-6 columns">
-                <ul class="menu">
-                    <li><a href="#">Legal</a></li>
-                    <li><a href="#">Partner</a></li>
-                    <li><a href="#">Explore</a></li>
-                </ul>
-            </div>
-
-            <div class="medium-6 columns">
-                <ul class="menu float-right">
-                    <li class="menu-text">Copyright</li>
-                </ul>
-            </div>
+            <div class="menu-text" id="copyright">Copyright</div>
         </div>
 
     </footer>

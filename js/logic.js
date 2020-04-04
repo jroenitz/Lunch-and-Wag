@@ -27,7 +27,7 @@ $(document).ready(function () {
         $("#restaurant-container").removeClass("hidden");
         //keeps from reloading page 
         e.preventDefault();
-
+        $(".center").removeClass("hidden")
         //testing button click works
         console.log("submitted");
 
@@ -65,7 +65,6 @@ $(document).ready(function () {
 
 
 
-
         // Use AJAX to perform Yelp API call
         $.ajax(settings).done(function (response) {
             let results = response.businesses;
@@ -85,61 +84,98 @@ $(document).ready(function () {
 
             var display = $('#my-lists');
 
-            var html = '';
-            // add first 10 results to map
-            for (var i = 0; i < 10; i++) {
-                latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
-                var marker = new google.maps.Marker({
-                    position: latlon,
-                    map: map,
-                    title: results[i].name
-                });
-                name = results[i].name;
-                image = results[i].image_url;
-                address = results[i].location.display_address;
-                phone = results[i].display_phone;
-                console.log("Name: " + name);
-                console.log("Image: " + image);
-                console.log("Address: " + address);
-                console.log("Phone: " + phone);
-                html += '<div class="column">';
-                html += ' <div class="callout">';
-                html += '  <p>' + name + '</p>';
-                html += '  <a target="_blank" href="' + 'https://www.google.com/maps/place/' + address + '"><img class="restaurantImage" src="' + image + '" alt="' + name + '"></a>';
-                html += '  <p class="lead">' + address + '</p>';
-                html += '  <p class="subheader">' + phone + '</p>';
-                html += ' </div>';
-                html += '</div>';
-           }
-            display.html(html);
+            var itemPerPage = 6; // custom item per page
+            var currentPage = 1;
+            var startItem = 0;
+            var endItem = itemPerPage - 1;
+            if (results.length < itemPerPage) {
+                endItem = results.length - 1;
+            }
 
-            $("#loadMore").one("click", function () {
-                for (var i = 10; i < 20; i++) {
-                    name = results[i].name;
-                    image = results[i].image_url;
-                    address = results[i].location.address1;
-                    phone = results[i].display_phone;
-                    console.log("Name: " + name);
-                    console.log("Image: " + image);
-                    console.log("Address: " + address);
+            function showItems(start, end) {
+                for (var i = start; i <= end; i++) {
+                    latlon = { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude };
+                    var marker = new google.maps.Marker({
+                        position: latlon,
+                        map: map,
+                        title: results[i].name
+                    });
+                    name = results[i].name
+                    image = results[i].image_url
+                    address = results[i].location.display_address
+                    phone = results[i].display_phone
+                    console.log("Name: " + name)
+                    console.log("Image: " + image)
+                    console.log("Address: " + address)
+
                     console.log("Phone: " + phone);
-
-                    html += '<div class="column">';
-                    html += ' <div class="callout">';
-                    html += '  <p>' + name + '</p>';
-                    html += '  <a target="_blank" href="' + 'https://www.google.com/maps/place/' + address + '"><img class="restaurantImage" src="' + image + '" alt="' + name + '"></a>';
-                    html += '  <p class="lead">' + address + '</p>';
-                    html += '  <p class="subheader">' + phone + '</p>';
-                    html += ' </div>';
-                    html += '</div>';
-
-
+    
+                    // method 2, used jQuery
+                    var wrapEl = $('<div></div>').addClass('column');
+                    var itemEl = $('<div></div>').addClass('callout');
+                    var nameEl = $('<p></p>').text(name).addClass('name');
+                    var linkEl = $('<a></a>');
+                    linkEl.attr('href', 'https://www.google.com/maps/place/' + address);
+                    linkEl.attr('target', '_blank');
+                    linkEl.append( // inside it, append an image
+                        $('<img>') // new image
+                          .attr('src', image) // set image SRC attribute
+                      ); // end append
+                    var addressEl = $('<p></p>').text(address).addClass('lead');
+                    var phoneEl = $('<p></p>').text(phone).addClass('subheader');
+                    var saveToEl = $('<buton>').text('Save to favorite')
+                    .addClass('Savetofav button primary')
+                    .click( createSaveToCallback( name ) );
+    
+                    itemEl.append(nameEl);
+                    itemEl.append(linkEl);
+                    itemEl.append(addressEl);
+                    itemEl.append(phoneEl);
+                    itemEl.append(saveToEl);
+    
+                    wrapEl.append(itemEl);
+    
+                    display.append(wrapEl);
                 }
-                display.html(html);
-            })
+            }
+
+//             function createSaveToCallback(itemEl){
+//                 return function(){
+//                   alert('you clicked on ' + name);
+//                 }
+//               }
+
+            showItems(startItem, endItem);
+
+            if (endItem >= results.length - 1) { // no more items, hide loadmore button 
+                $("#loadMore").hide();
+
+            } else { 
+                $("#loadMore").show();
+
+                // add click event
+                $("#loadMore").click(function () {
+                    // move to next page
+                    startItem = currentPage * itemPerPage;
+                    endItem = (currentPage + 1) * itemPerPage - 1;
+                    if (results.length - 1 < endItem) {
+                        endItem = results.length - 1;
+                    }
+                    currentPage += 1;
+                    showItems(startItem, endItem);
+                    
+                    if (endItem >= results.length - 1) { // no more items, hide loadmore button 
+                        $("#loadMore").hide();
+                    }
+                });
+            }       
+
+            var html = '';
+
         }).fail(function (err) { console.log("something went wrong") });
     });
-    
+   
+
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page
@@ -185,6 +221,25 @@ if (navigator.geolocation) {
 else {
     console.log('Geolocation is not supported for this Browser/OS.');
 }
+
+// Get zipcode from shared location. This code was adapted from code taken from google maps api page
+function geocodeLatLng(geocoder, map) {
+    var latlng = { lat: userLat, lng: userLon };
+    console.log(latlng)
+    geocoder.geocode({ 'location': latlng }, function (results, status) {
+        console.log(results)
+        if (status =google.maps.GeocoderStatus.OK) {
+            zipcode = results[0].address_components[6].long_name;
+            console.log(zipcode)
+            // update zipcode in search field
+            $('#searchBar').val(zipcode);
+        }
+        else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
+}
+
 
 // Portions of the weather api code were taken from the weather dashboard project
 function getWeather() {
@@ -273,6 +328,8 @@ function getLatLngByZipcode(zipcode) {
         } else {
             alert("Request failed.")
         }
-    });
+
+    })
+
 
 }

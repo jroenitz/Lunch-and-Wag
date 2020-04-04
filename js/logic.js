@@ -181,9 +181,6 @@ $(document).ready(function () {
         // gets the users gps location. This code was adapted from code taken from google maps api page
         event.preventDefault();
         var startPos;
-    
-        getWeather();
-        $(".center").removeClass("hidden");
 
         // clear out the search bar
         $('#searchBar').val("");

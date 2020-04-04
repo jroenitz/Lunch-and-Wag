@@ -83,6 +83,7 @@ $(document).ready(function () {
             getWeather();
             $(".center").removeClass("hidden");
 
+            // loadAnimation();
             var display = $('#my-lists');
 
             var html = '';
@@ -110,8 +111,9 @@ $(document).ready(function () {
                 html += '  <p class="subheader">' + phone + '</p>';
                 html += ' </div>';
                 html += '</div>';
-           }
+            }
             display.html(html);
+            // $("#loader-row").addClass("hidden");
 
             $("#loadMore").one("click", function () {
                 for (var i = 10; i < 20; i++) {
@@ -139,7 +141,7 @@ $(document).ready(function () {
             })
         }).fail(function (err) { console.log("something went wrong") });
     });
-    
+
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page
@@ -273,3 +275,19 @@ function getLatLngByZipcode(zipcode) {
     });
 
 }
+
+// function loadAnimation() {
+
+//     var elem = $("#loader");
+//     var degree = 0;
+//     var interval = setInterval(frame, 5);
+//     function frame() {
+//         if ($("#loader-row").classList.contains("hidden")) {
+//             clearInterval(interval);
+//         } else {
+//             degree += 5;
+//             elem.setAttribute('style','transform:rotate(' + degree + 'deg)')
+//         }
+
+//     }
+// }

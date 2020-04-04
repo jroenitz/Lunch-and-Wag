@@ -139,11 +139,11 @@ $(document).ready(function () {
                 }
             }
 
-//             function createSaveToCallback(itemEl){
-//                 return function(){
-//                   alert('you clicked on ' + name);
-//                 }
-//               }
+            function createSaveToCallback(itemEl){
+                return function(){
+                  alert('you clicked on ' + name);
+                }
+            }
 
             showItems(startItem, endItem);
 

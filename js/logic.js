@@ -82,6 +82,7 @@ $(document).ready(function () {
             getWeather();
             $(".center").removeClass("hidden");
 
+            // loadAnimation();
             var display = $('#my-lists');
 
             var itemPerPage = 6; // custom item per page
@@ -91,6 +92,7 @@ $(document).ready(function () {
             if (results.length < itemPerPage) {
                 endItem = results.length - 1;
             }
+
 
             function showItems(start, end) {
                 for (var i = start; i <= end; i++) {
@@ -174,7 +176,6 @@ $(document).ready(function () {
 
         }).fail(function (err) { console.log("something went wrong") });
     });
-   
 
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
@@ -326,7 +327,21 @@ function getLatLngByZipcode(zipcode) {
             alert("Request failed.")
         }
 
-    })
-
 
 }
+
+// function loadAnimation() {
+
+//     var elem = $("#loader");
+//     var degree = 0;
+//     var interval = setInterval(frame, 5);
+//     function frame() {
+//         if ($("#loader-row").classList.contains("hidden")) {
+//             clearInterval(interval);
+//         } else {
+//             degree += 5;
+//             elem.setAttribute('style','transform:rotate(' + degree + 'deg)')
+//         }
+
+//     }
+// }

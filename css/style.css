@@ -17,6 +17,16 @@ body {
     margin: 0 15px;
 }
 
+/* #loader {
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+#loader-row {
+    margin-bottom: 15px;
+} */
+
 .restaurantName {
     font-size: 20px;
 }

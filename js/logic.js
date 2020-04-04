@@ -326,7 +326,7 @@ function getLatLngByZipcode(zipcode) {
             $(".center").removeClass("hidden");
         } else {
             alert("Request failed.")
-        }
+        });
 
 
 }

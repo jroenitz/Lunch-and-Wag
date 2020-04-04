@@ -344,26 +344,6 @@ function getLatLngByZipcode(zipcode) {
         }
     })
 
-    var favorites={}
-    var storedFavorites=localStorage.getItem(".Savetofav")
-        if(storedFavorites){favorites= JSON.parse(storedFavorites)} 
-    var toggleFavorites= function (business) {
-        if(favorites[business.id]){
-           delete favorites[business.id];
-        }
-        else{favorites[business.id]=business;
-        }
-        localStorage.setItem("favorites", JSON.stringify(favorites))
-    }
-    var favoritesElement=document.getElementById("favoritesList")
-        if(favoritesElement){
-            Object.keys(favorites).forEach(businessId => {
-                var nameElement=document.createElement("p")
-                nameElement.innerHTML=favorites[businessId].name
-                favoritesElement.appendChild(nameElement)
-            });
-          console.log(favorites)  
-        }
-
+   
 
 }

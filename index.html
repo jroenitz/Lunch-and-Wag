@@ -4,7 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><i class="fas fa-paw">Lunch & Wag</title>
+
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="css/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="css/favicon-16x16.png">
+    <link rel="manifest" href="css/site.webmanifest">
+    <link rel="mask-icon" href="css/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Lunch and Wag</title>
+
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/801ac47641.js" crossorigin="anonymous"></script>
@@ -14,11 +25,17 @@
 <body>
 
     <!-- Navigation -->
-    <div class="name">
-      <p><i class="fas fa-paw"></i>Lunch And Wag<i class="fas fa-utensils"></i></p>
+
+    <div class="top-bar" id="resturantMenu">
+        <div class="top-bar-left">
+            <ul class="menu" data-responsive-menu="accordion">
+                <li class="menu-text">Whatcha want?</li>
+                <li><a href="#index.html">Home</a></li>
+                <li><a href="favorites.html">Your Favorites</a></li>
+            </ul>
+        </div>
     </div>
 
-    
     <!-- /Navigation -->
 
     <br>
@@ -28,6 +45,14 @@
         <div class="medium-12 large-4 columns">
             <h1>Take a seat with your pup</h1>
             <p class="subheader">There is always a place to go on a date with your pup no matter the weather.</p>
+
+            <hr>
+            <div class="center hidden">
+                <h4 id="weather"></h4>
+                <div id="temp"></div>
+                <img id="sky-icon" />
+            </div>
+
         </div>
 
         <!-- /where weather can go-->
@@ -46,19 +71,13 @@
                                 </label>
 
                                 <button class="button" id="share-location">Share Location</button>
-                                <button class="button" id="searchButton">Find a random restaurant nearby </button>
-                                <button id="searchButton">Search</button>
-
+                                <button class="button" id="searchButton">Find restaurants nearby </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="row">
-                <div id="weather"></div>
-                <div id="temp"></div>
-                <img id="sky-icon" />
-            </div>
+
         </div>
 
     </div>
@@ -68,7 +87,7 @@
     </div>
 
     <!-- Begin Restaurant container -->
-
+<div class="hidden" id="restaurant-container">
     <div class="row column">
         <p class="lead">Top rated restaurants</p>
     </div>
@@ -76,6 +95,12 @@
     <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3" >
  
     </div>
+
+    <div class="row column">
+        <a class="button hollow expanded" id="loadMore" style="display: none;">Give me more choices!</a>
+    </div>
+</div>
+
     <footer>
 
         <div class="row">

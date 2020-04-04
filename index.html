@@ -28,12 +28,13 @@
 
     <!-- Navigation -->
 
-    <div class="top-bar" id="realEstateMenu">
+
+    <div class="top-bar" id="resturantMenu">
         <div class="top-bar-left">
             <ul class="menu" data-responsive-menu="accordion">
-                <li><img src="css/image.png" alt="Lunch and Wag logo" id="logo" /></li>
-                <li class="menu-text">Lunch and Wag</li>
-                <li><i class="fas fa-utensils"></i></li>
+                <li class="menu-text">Whatcha want?</li>
+                <li><a href="#index.html">Home</a></li>
+                <li><a href="favorites.html">Your Favorites</a></li>
             </ul>
         </div>
     </div>
@@ -50,7 +51,6 @@
             <hr>
             <div class="center hidden">
                 <div id="date"></div>
-                <!-- <div id="weather"></div> -->
                 <div id="temp"></div>
                 <div id="wind"></div>
                 <img id="sky-icon" />
@@ -90,23 +90,29 @@
     </div>
 
     <!-- Begin Restaurant container -->
+
     <div class="hidden" id="restaurant-container">
         <div class="row column">
             <p class="lead">Top rated restaurants</p>
         </div>
+
         <!-- <div class="row" id="loader-row">
             <div class="columns small-centered">
                 <img src="css/loader.png" alt="loading indicator" id="loader" />
             </div>
         </div> -->
+
         <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3">
-
         </div>
-
         <div class="row column">
             <a class="button hollow expanded" id="loadMore">Give me more choices!</a>
         </div>
     </div>
+
+    <div class="row column">
+        <a class="button hollow expanded" id="loadMore" style="display: none;">Give me more choices!</a>
+    </div>
+</div>
 
     <footer>
 

@@ -82,6 +82,7 @@ $(document).ready(function () {
             getWeather();
             $(".center").removeClass("hidden");
 
+            // loadAnimation();
             var display = $('#my-lists');
 
             var itemPerPage = 6; // custom item per page
@@ -91,6 +92,7 @@ $(document).ready(function () {
             if (results.length < itemPerPage) {
                 endItem = results.length - 1;
             }
+
 
             function showItems(start, end) {
                 for (var i = start; i <= end; i++) {
@@ -120,6 +122,7 @@ $(document).ready(function () {
                     linkEl.append( // inside it, append an image
                         $('<img>') // new image
                           .attr('src', image) // set image SRC attribute
+                        .addClass("restaurantImage")
                       ); // end append
                     var addressEl = $('<p></p>').text(address).addClass('lead');
                     var phoneEl = $('<p></p>').text(phone).addClass('subheader');
@@ -139,11 +142,11 @@ $(document).ready(function () {
                 }
             }
 
-//             function createSaveToCallback(itemEl){
-//                 return function(){
-//                   alert('you clicked on ' + name);
-//                 }
-//               }
+            function createSaveToCallback(itemEl){
+                return function(){
+                  alert('you clicked on ' + name);
+                }
+            }
 
             showItems(startItem, endItem);
 
@@ -174,16 +177,12 @@ $(document).ready(function () {
 
         }).fail(function (err) { console.log("something went wrong") });
     });
-   
 
     // Click handler for share location button
     $("#share-location").on("click", function (event) {
         // gets the users gps location. This code was adapted from code taken from google maps api page
         event.preventDefault();
         var startPos;
-    
-        getWeather();
-        $(".center").removeClass("hidden");
 
         // clear out the search bar
         $('#searchBar').val("");
@@ -326,10 +325,29 @@ function getLatLngByZipcode(zipcode) {
             getWeather();
             $(".center").removeClass("hidden");
         } else {
-            alert("Request failed.")
+            alert("Request failed.");
         }
-
-    })
+    });
 
 
 }
+
+<<<<<<< HEAD
+}
+=======
+// function loadAnimation() {
+
+//     var elem = $("#loader");
+//     var degree = 0;
+//     var interval = setInterval(frame, 5);
+//     function frame() {
+//         if ($("#loader-row").classList.contains("hidden")) {
+//             clearInterval(interval);
+//         } else {
+//             degree += 5;
+//             elem.setAttribute('style','transform:rotate(' + degree + 'deg)')
+//         }
+
+//     }
+// }
+>>>>>>> ba3b34071776898ae2ff7adae3ec382a2b79941e

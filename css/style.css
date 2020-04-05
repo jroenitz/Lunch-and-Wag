@@ -7,6 +7,10 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+.top-bar, .top-bar ul {
+    background-color: transparent;
+}
+
 #map {
     height: 400px;
     max-width: 100%;
@@ -16,6 +20,16 @@ body {
 .callout.secondary {
     margin: 0 15px;
 }
+
+/* #loader {
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+#loader-row {
+    margin-bottom: 15px;
+} */
 
 .restaurantName {
     font-size: 20px;
@@ -47,6 +61,14 @@ body {
 
 #copyright {
     text-align: center;
+    font-weight: 700;
+}
+
+#attribute-icons {
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 4px;
+    font-size: 12px;
 }
 
 .hidden {

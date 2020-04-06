@@ -230,7 +230,7 @@ function geocodeLatLng(geocoder, map) {
     geocoder.geocode({ 'location': latlng }, function (results, status) {
         console.log(results)
         if (status =google.maps.GeocoderStatus.OK) {
-            zipcode = results[0].formatted_address.match(/\d{5})/);
+            zipcode = results[0].formatted_address.match(/\d{5}/);
             console.log(zipcode)
             // update zipcode in search field
             $('#searchBar').val(zipcode);

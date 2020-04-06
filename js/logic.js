@@ -82,8 +82,10 @@ $(document).ready(function () {
             getWeather();
             $(".center").removeClass("hidden");
 
-            // loadAnimation();
+          
             var display = $('#my-lists');
+
+           display.empty();
 
             var itemPerPage = 6; // custom item per page
             var currentPage = 1;
@@ -128,7 +130,7 @@ $(document).ready(function () {
                     var phoneEl = $('<p></p>').text(phone).addClass('subheader');
                     var saveToEl = $('<buton>').text('Save to favorite')
                     .addClass('Savetofav button primary')
-                    .click( createSaveToCallback( name ) );
+                    // .click( createSaveToCallback( name ) );
     
                     itemEl.append(nameEl);
                     itemEl.append(linkEl);
@@ -142,11 +144,11 @@ $(document).ready(function () {
                 }
             }
 
-            function createSaveToCallback(itemEl){
-                return function(){
-                  alert('you clicked on ' + name);
-                }
-            }
+            // function createSaveToCallback(itemEl){
+            //     return function(){
+            //       alert('you clicked on ' + name);
+            //     }
+            // }
 
             showItems(startItem, endItem);
 
@@ -173,7 +175,7 @@ $(document).ready(function () {
                 });
             }       
 
-            var html = '';
+           
 
         }).fail(function (err) { console.log("something went wrong") });
     });
@@ -194,7 +196,7 @@ $(document).ready(function () {
 
             // reload the map centered on user's location
             initMap();
-
+            geocodeLatLng(geocoder, map);
         };
         console.log(userLat);
         console.log(userLon);
@@ -228,10 +230,11 @@ function geocodeLatLng(geocoder, map) {
     geocoder.geocode({ 'location': latlng }, function (results, status) {
         console.log(results)
         if (status =google.maps.GeocoderStatus.OK) {
-            zipcode = results[0].address_components[6].long_name;
+            zipcode = results[0].formatted_address.match(/\d{5}/);
             console.log(zipcode)
             // update zipcode in search field
             $('#searchBar').val(zipcode);
+            console.log(zipcode)
         }
         else {
             window.alert('Geocoder failed due to: ' + status);
@@ -327,10 +330,7 @@ function getLatLngByZipcode(zipcode) {
         } else {
             alert("Request failed.");
         }
-    });
-
-
-}
+    });  
 
 // function loadAnimation() {
 
@@ -346,4 +346,4 @@ function getLatLngByZipcode(zipcode) {
 //         }
 
 //     }
-// }
+}

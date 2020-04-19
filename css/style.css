@@ -11,25 +11,53 @@ body {
     background-color: transparent;
 }
 
+#page-heading {
+    text-align: center;
+}
+
+label {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
 #map {
-    height: 400px;
-    max-width: 100%;
-    margin-bottom: 10px;
+    height: 560px;
+    max-width: 750px;
+    margin: 10px auto;
+}
+
+#share-location {
+    background-color: #0267c1;
+}
+
+#share-location:focus, #share-location:hover {
+    background-color: #034e91;
 }
 
 .callout.secondary {
-    margin: 0 15px;
-}
-
-/* #loader {
-    height: 50px;
-    display: block;
     margin: 0 auto;
+    max-width: 600px;
 }
 
-#loader-row {
-    margin-bottom: 15px;
-} */
+#searchBar {
+    margin: 0;
+}
+
+#searchButton {
+    background-color: #f4743b;
+}
+
+#searchButton:focus, #searchButton:hover {
+    background-color: #df551a;
+}
+
+.button, .columns p {
+    margin: 0;
+}
+
+#middle-row {
+    margin: 15px 0;
+}
 
 .restaurantName {
     font-size: 20px;
@@ -48,13 +76,12 @@ body {
     font-size: 24px;
 }
 
-
-.center {
+#weather {
     font-family: 'Roboto Mono', monospace;
     text-align: center;
     border: solid 1px transparent;
     border-radius: 20px;
-    margin: 0 auto 15px;
+    margin: 25px auto;
     width: 250px;
     background-color: #7574743d;
 }
@@ -73,4 +100,10 @@ body {
 
 .hidden {
     display: none;
+}
+
+@media screen and (max-width: 900px) {
+    #map {
+        height: 400px;
+    }
 }

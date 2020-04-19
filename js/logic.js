@@ -25,6 +25,11 @@ $(document).ready(function () {
     //click handler for submit button
     $("#searchButton").on("click", function (e) {
         $("#restaurant-container").removeClass("hidden");
+        $("#map-container").removeClass("hidden");
+        $("#page-heading").removeClass("large-12");
+        $("#page-heading").addClass("large-6");
+
+
         //keeps from reloading page 
         e.preventDefault();
         $(".center").removeClass("hidden")
@@ -80,7 +85,7 @@ $(document).ready(function () {
             });
 
             getWeather();
-            $(".center").removeClass("hidden");
+            $("#weather").removeClass("hidden");
 
           
             var display = $('#my-lists');
@@ -332,18 +337,4 @@ function getLatLngByZipcode(zipcode) {
         }
     });  
 
-// function loadAnimation() {
-
-//     var elem = $("#loader");
-//     var degree = 0;
-//     var interval = setInterval(frame, 5);
-//     function frame() {
-//         if ($("#loader-row").classList.contains("hidden")) {
-//             clearInterval(interval);
-//         } else {
-//             degree += 5;
-//             elem.setAttribute('style','transform:rotate(' + degree + 'deg)')
-//         }
-
-//     }
 }

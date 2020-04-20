@@ -44,43 +44,46 @@
     <br>
 
     <div class="row">
-
-        <div class="medium-12 large-4 columns">
+        <div class="medium-12 large-12 columns" id="page-heading">
             <h1>Take a seat with your pup</h1>
             <p class="subheader">There is always a place to go on a date with your pup no matter the weather.</p>
             <hr>
-            <div class="center hidden">
+
+            <div class="callout secondary row">
+                <form>
+
+                    <div class="small-12">
+                        <label>Where you at?</label>
+                    </div>
+                    <div class="row align-middle" id="middle-row">
+                        <div class="small-5 columns">
+                            <button class="button" id="share-location">Share Location</button>
+                        </div>
+                        <div class="small-2 columns">
+                            <p>or</p>
+                        </div>
+                        <div class="small-5 columns">
+                            <input type="text" placeholder="Your Zip Code" id="searchBar">
+                        </div>
+                    </div>
+                    <div class="small-12">
+                        <button class="button" id="searchButton">Find restaurants nearby </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="center hidden" id="weather">
                 <div id="date"></div>
                 <div id="temp"></div>
                 <div id="wind"></div>
                 <img id="sky-icon" />
             </div>
-
         </div>
 
-        <!-- /where weather can go-->
-        <div class="medium-6 large-5 columns">
+        <!-- Map -->
+        <div class="medium-12 large-6 columns hidden" id="map-container">
             <div id="map"></div>
-        </div>
-
-        <div class="medium-6 large-3 columns">
-            <div class="row">
-                <div class="callout secondary">
-                    <form>
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <label>Where you at?
-                                    <input type="text" placeholder="Your Zip Code" id="searchBar">
-                                </label>
-
-                                <button class="button" id="share-location">Share Location</button>
-                                <button class="button" id="searchButton">Find restaurants nearby </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
         </div>
 
     </div>
@@ -96,12 +99,6 @@
             <p class="lead">Top rated restaurants</p>
         </div>
 
-        <!-- <div class="row" id="loader-row">
-            <div class="columns small-centered">
-                <img src="css/loader.png" alt="loading indicator" id="loader" />
-            </div>
-        </div> -->
-
         <div id="my-lists" class="row small-up-1 medium-up-2 large-up-3">
         </div>
         <div class="row column">
@@ -112,7 +109,7 @@
     <div class="row column">
         <a class="button hollow expanded" id="loadMore" style="display: none;">Give me more choices!</a>
     </div>
-</div>
+    </div>
 
     <footer>
 
@@ -129,11 +126,7 @@
     </footer>
 
     <!--- dowloaded Jquery js local-->
-
     <script src="js/jquery.3.4.1.js"></script>
-
-    <!--Foundation framework-->
-    <!-- <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script> -->
 
     <!--Link to moment-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

@@ -1,9 +1,9 @@
 # Lunch and Wag
         
 ## Project Description
-```
-    The user can share their location, or enter a zip code. A map on the page moves to that location and displays dog friendly restaurants. A list of restaurants also displays below the map with their addresses. The user can click the restaurants to get driving directions to them.
-```
+
+The user can share their location, or enter a zip code. A map on the page moves to that location and displays dog friendly restaurants. A list of restaurants also displays below the map with their addresses. The user can click the restaurants to get driving directions to them.
+
 
 ## User Story
 ```
